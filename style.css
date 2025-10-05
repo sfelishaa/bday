@@ -1,0 +1,129 @@
+body {
+  font-family: "Press Start 2P", cursive;
+  cursor: url("https://cur.cursors-4u.net/games/gam-16/gam1530.cur"), auto;
+}
+.pixel-btn {
+  position: relative;
+  display: inline-block;
+  padding: 1.2rem 3.5rem;
+  font-size: 20px;
+  color: #fff;
+  background: #39d353;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0;
+  text-shadow: 2px 2px 0 #000;
+  image-rendering: pixelated;
+  box-shadow: inset -4px -4px 0 #267c28, inset 4px 4px 0 #6aff6a, 6px 6px 0 #222;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.pixel-btn:hover {
+  background: #2ebf47;
+  transform: scale(1.05);
+}
+
+.pixel-btn:active {
+  transform: translate(4px, 4px);
+  box-shadow: inset -4px -4px 0 #1e5f1f, inset 4px 4px 0 #57e657, 2px 2px 0 #111;
+}
+
+.pixelated {
+  image-rendering: pixelated;
+}
+.cake-wrap {
+  position: relative;
+  width: 220px;
+}
+.cake-wrap img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.candle {
+  position: absolute;
+  bottom: 80%;
+  width: 10px;
+  height: 70px;
+  background: #1e3a8a;
+  border: 2px solid #0b1020;
+  border-radius: 2px;
+}
+.c1 {
+  left: 27%;
+}
+.c2 {
+  left: 48%;
+}
+.c3 {
+  left: 69%;
+}
+.wick {
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  width: 2px;
+  height: 6px;
+  background: #111;
+  transform: translateX(-50%);
+}
+.flame {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  width: 14px;
+  height: 14px;
+  transform: translateX(-50%);
+}
+.flame::before,
+.flame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 60%, #fde047 55%, #f59e0b 100%);
+  animation: flicker 0.8s infinite alternate ease-in-out;
+}
+.flame::after {
+  filter: blur(2px);
+  opacity: 0.7;
+}
+
+@keyframes flicker {
+  0% {
+    transform: scale(1) translateY(0) rotate(-2deg);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1.2) translateY(-3px) rotate(2deg);
+    opacity: 1;
+  }
+}
+.smoke {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(120, 120, 120, 0.6);
+  transform: translateX(-50%);
+  opacity: 0;
+  pointer-events: none;
+}
+.candle.off .flame {
+  display: none;
+}
+.candle.off .smoke {
+  animation: puff 0.9s ease-out forwards;
+}
+@keyframes puff {
+  0% {
+    opacity: 0.9;
+    transform: translate(-50%, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -18px) scale(1.8);
+  }
+}

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Love Letter for Indah</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .typing {
+        border-right: 2px solid #ec4899;
+        white-space: pre-line;
+        overflow: hidden;
+      }
+      .fade-in {
+        animation: fadeIn 1s ease forwards;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      /* Style untuk memaksa video potret jadi landscape */
+      .landscape {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        border-radius: 10px;
+      }
+    </style>
+  </head>
+  <body
+    class="min-h-screen flex justify-center items-center bg-gradient-to-br from-pink-100 via-pink-200 to-pink-300"
+    style="font-family: 'Press Start 2P', cursive"
+  >
+    <div
+      class="bg-white rounded-2xl shadow-xl border-2 border-pink-400 max-w-md p-8 text-center"
+    >
+      <h1 class="text-2xl text-pink-600 mb-6">💌 Messages for Indah 💌</h1>
+
+      <!-- Konten pesan / video -->
+      <div id="content" class="mb-6"></div>
+
+      <!-- Tombol pilihan -->
+      <div class="flex gap-4 justify-center flex-wrap">
+        <button
+          id="msgBtn"
+          class="px-4 py-2 bg-pink-500 text-white rounded-lg shadow hover:bg-pink-600 transition-all"
+        >
+          📜 Pesan
+        </button>
+        <button
+          id="vidBtn"
+          class="px-4 py-2 bg-yellow-500 text-white rounded-lg shadow hover:bg-yellow-600 transition-all"
+        >
+          🎥 Video
+        </button>
+      </div>
+
+      <!-- Tombol kembali -->
+      <a
+        href="index.html"
+        class="hidden mt-6 inline-block px-6 py-3 bg-pink-400 text-white rounded-lg shadow hover:bg-pink-500 transition-all"
+        id="backBtn"
+      >
+        ⬅ Kembali
+      </a>
+    </div>
+
+    <script>
+      const msgBtn = document.getElementById("msgBtn");
+      const vidBtn = document.getElementById("vidBtn");
+      const content = document.getElementById("content");
+      const backBtn = document.getElementById("backBtn");
+
+      // daftar pesan dari teman-teman (6 pesan)
+      const messages = [
+        "Hai cimiit kamu seperti bumantara tanpa asa yang lahir tanpa perantara kata, selamat ulang tahun dan semoga yang disemogakan tersemogakan dari aku desti umaa , salam metal🤙🏻🤟🏻💗- Dari Desti",
+        "Hallo ndahhh👋🏻, happybirthdayy and wish u all the best🫰🏻, lancar untuk mencapai semua💗mimpinyaa - Dari Nadd",
+        "Happy Birthday Indahh, semogaa panjangg umur sehatt selalu ceriaa selaluu jugaa, wish you all the best. - Dari Elnino",
+        "Happy birthday bub indah 🥳🫰🏻, di umur mu yang sekarang semoga kamu diberikan rezeki yang lancar dan melimpah, sehat selalu, dan dipermudahkan dalam segala hal apapun terutama semoga cita-cita ataupun impian kamu terwujud. Paling penting jangan sampe hilang senyummu yang indah seperti namamu itu, bahagia selalu indahh sayang 😚💞🫶🏻‼Jangan lupa shopee 11.11 nanti😉 - Dari Ajra",
+        "Barakallah fi umrik cimittttt 🤍🤗sehat selalu yaa diberi umur yang panjang dan barokah, dilancarkan segala urusan dan rezekinyaaa, yang dicita-citakan dapat tercapai, selalu dikelilingi orang orang baik, dijauhkan dari org org yang jahat dan selalu dalam perlindungan Allah Aamiin 🤲🏻🤍sekali lagiiiiii happyyy bdayyyyyy 🤍🤍🤍!  - Dari Aulll",
+        "HAPPY INDAH-DAY🫶💐🌷Awal aku ketemu kamuu tuhh kmu orangnya ceriaa bangettt jd bikin orang tuh nyaman deket kamuu.Doa dari akuu semoga panjang umur, sehat selalu, dimudahkan segala sesuatunya, ceria selalu, bisa lulus tepat waktuu bareng-bareng🤲🏻Semangat teruss yaa kuliahnyaa its okay kok kalau kmu ada kesulitan diperkuliahan. Kamuu sejauhh ini ge udh kereenn bangett🤩🤩 ayoo sama-sama belajar dan terus berproses🌷 - Dari Laysa",
+        "Happy Birthday Indah / Barakallah fii umrik, Indah. Semoga panjang umur, sehat selalu, The best prayer for you. Semangatt dan sukses selalu - Dari Reva",
+        "Mabruk alfa mabruk sayangkuu🫰🏻 wish you all the best pokoknya, tetap jadi orang baik dan soft spoken yaa😘 - Dari Ica",
+        "Barakkallahu fii umrik indahh🥳semoga di usia yang baru ini kmu slalu dikelilingi org baik, rezeki yang lancar, dan kebahagiaan yang gak ada abisnya. Semoga angka umurmu nambah tpi beban hidup nggk ikut nambah😅 - Dari Najwaa",
+      ];
+      // daftar video (4 video: sasta, marsha, azhara, nabiel)
+      const videos = [
+        { src: "assets/sasta.mp4", landscape: false },
+        { src: "assets/marsha.mp4", landscape: false },
+        { src: "assets/azhara.mp4", landscape: true },
+        { src: "assets/nabiel.mp4", landscape: false },
+      ];
+      let videoIndex = 0;
+
+      // fungsi typing
+      function typeWriter(el, message, callback, speed = 40) {
+        let i = 0;
+        el.textContent = "";
+        function typing() {
+          if (i < message.length) {
+            el.textContent += message.charAt(i);
+            i++;
+            setTimeout(typing, speed);
+          } else {
+            el.classList.remove("typing");
+            if (callback) setTimeout(callback, 2000);
+          }
+        }
+        typing();
+      }
+
+      // tombol pesan
+      msgBtn.addEventListener("click", () => {
+        content.innerHTML =
+          '<p id="letter" class="text-gray-700 text-sm leading-relaxed typing fade-in"></p>';
+        const letterEl = document.getElementById("letter");
+
+        let index = 0;
+        function showNextMessage() {
+          if (index < messages.length) {
+            typeWriter(letterEl, messages[index], () => {
+              index++;
+              showNextMessage();
+            });
+          } else {
+            backBtn.classList.remove("hidden");
+          }
+        }
+        showNextMessage();
+      });
+
+      // tombol video (satu-satu)
+      vidBtn.addEventListener("click", () => {
+        videoIndex = 0;
+        playVideo();
+      });
+
+      function playVideo() {
+        if (videoIndex < videos.length) {
+          let videoClass = videos[videoIndex].landscape
+            ? "landscape"
+            : "w-full rounded-lg shadow fade-in";
+          content.innerHTML = `
+            <video id="videoPlayer" controls autoplay class="${videoClass}">
+              <source src="${videos[videoIndex].src}" type="video/mp4">
+              Browser kamu tidak mendukung video.
+            </video>
+          `;
+          const videoPlayer = document.getElementById("videoPlayer");
+          videoPlayer.onended = () => {
+            videoIndex++;
+            playVideo();
+          };
+        } else {
+          // kalau semua video selesai
+          content.innerHTML = `<p class="text-green-600 fade-in">✨ Semua video sudah diputar ✨</p>`;
+          backBtn.classList.remove("hidden");
+        }
+      }
+    </script>
+  </body>
+</html>
