@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>indah-bday</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body
+    class="min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-pink-100 via-pink-200 to-pink-300"
+  >
+    <div class="flex flex-col items-center gap-6">
+      <img
+        src="assets/indah.jpg"
+        alt="Birthday Photo"
+        class="w-40 h-40 object-cover rounded-full border-4 border-pink-400 shadow-lg mb-2"
+      />
+
+      <div class="cake-wrap">
+        <img
+          class="pixelated"
+          src="assets/image-removebg-preview.png"
+          alt="Pixel Cake"
+        />
+        <div class="candle c2">
+          <div class="wick"></div>
+          <div class="flame"></div>
+          <div class="smoke"></div>
+        </div>
+      </div>
+
+      <div
+        class="bg-white rounded-xl shadow-lg px-6 py-4 text-center border-2 border-yellow-300"
+        style="font-family: 'Press Start 2P', cursive"
+      >
+        <span class="block text-2xl text-pink-500 mb-2">Happy Indah Day!</span>
+
+        <span class="block text-sm text-gray-500">- ❤️❤️❤️ -</span>
+      </div>
+
+      <button
+        id="blowBtn"
+        class="mt-2 px-6 py-3 bg-pink-400 text-white font-bold rounded-lg shadow hover:bg-pink-500 transition-all"
+        style="font-family: 'Press Start 2P', cursive"
+      >
+        Blow The Candles!
+      </button>
+    </div>
+
+    <!-- Love Letter Button -->
+    <a
+      href="love-letter.html"
+      class="fixed bottom-4 right-4 bg-pink-500 text-white px-4 py-3 rounded-full shadow-lg hover:bg-pink-600 transition-all flex items-center justify-center"
+      style="font-family: 'Press Start 2P', cursive"
+    >
+      💌
+    </a>
+
+    <script>
+      const blowBtn = document.getElementById("blowBtn");
+      blowBtn.addEventListener("click", () => {
+        document
+          .querySelectorAll(".candle")
+          .forEach((c) => c.classList.add("off"));
+        setTimeout(
+          () =>
+            document
+              .querySelectorAll(".candle")
+              .forEach((c) => c.classList.remove("off")),
+          5000
+        );
+      });
+    </script>
+  </body>
+</html>
